@@ -5,12 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Атлас української культури | SUBIT</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
-        <h1>📖 Атлас української культури</h1>
-        <p>64 архетипи за системою <strong>SUBIT</strong> – WHO × WHERE × WHEN</p>
+        <div class="header-inner">
+            <h1>Атлас української культури</h1>
+            <p>SUBIT – 64 архетипи: WHO × WHERE × WHEN</p>
+            <div class="legend">
+                <span class="legend-spring">Весна (зародження)</span>
+                <span class="legend-summer">Літо (розквіт)</span>
+                <span class="legend-autumn">Осінь (трансформація)</span>
+                <span class="legend-winter">Зима (пам'ять)</span>
+            </div>
+        </div>
     </header>
+
     <div class="grid-container" id="grid"></div>
 
     <div id="modal" class="modal">
@@ -19,16 +29,20 @@
             <h2 id="modal-title"></h2>
             <p id="modal-trigram" class="trigram"></p>
             <p id="modal-desc"></p>
-            <div id="modal-fields"></div>
-            <div id="modal-representatives"></div>
-            <div id="modal-works"></div>
-            <div id="modal-links"></div>
+            <div class="modal-section" id="modal-fields">
+                <i class="fas fa-tags"></i> <strong>Культурні поля:</strong> <span></span>
+            </div>
+            <div class="modal-section" id="modal-representatives">
+                <i class="fas fa-users"></i> <strong>Представники:</strong> <span></span>
+            </div>
+            <div class="modal-section" id="modal-works">
+                <i class="fas fa-book"></i> <strong>Твори / події:</strong> <span></span>
+            </div>
+            <div class="modal-section" id="modal-links">
+                <i class="fas fa-link"></i> <strong>Посилання:</strong> <span></span>
+            </div>
         </div>
     </div>
-
-    <footer>
-        <p>© 2025 | Ліцензія CC BY-SA 4.0 | Дані з <code>archetypes.json</code></p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
