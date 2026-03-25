@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background-color: #fef9e8;
+    background-color: #fefefe;
     color: #1e1e1e;
     margin: 0;
     padding: 0;
@@ -20,7 +20,7 @@ h1, h2, .trigram {
 header {
     text-align: center;
     padding: 2rem 1rem;
-    background: linear-gradient(135deg, #9e2a2b 0%, #e6b422 100%);
+    background: linear-gradient(135deg, #0057B7 0%, #FFD700 100%);
     color: white;
     margin-bottom: 2rem;
     position: relative;
@@ -30,7 +30,7 @@ header::after {
     display: block;
     width: 100%;
     height: 6px;
-    background: repeating-linear-gradient(45deg, #e6b422, #e6b422 10px, #9e2a2b 10px, #9e2a2b 20px);
+    background: repeating-linear-gradient(45deg, #FFD700, #FFD700 10px, #0057B7 10px, #0057B7 20px);
     margin-top: 1rem;
 }
 
@@ -45,7 +45,7 @@ header::after {
 
 .cell {
     background: white;
-    border: 1px solid #e6b422;
+    border: 1px solid #FFD700;
     border-radius: 12px;
     padding: 0.8rem;
     text-align: center;
@@ -59,10 +59,10 @@ header::after {
     transform: translateY(-4px);
     box-shadow: 0 8px 16px rgba(0,0,0,0.1);
 }
-.cell-spring { background-color: #e6f7e6; border-left: 6px solid #b8d8a8; }
-.cell-summer { background-color: #fff7e6; border-left: 6px solid #ffd966; }
-.cell-autumn { background-color: #fff0e0; border-left: 6px solid #e6a017; }
-.cell-winter { background-color: #e8f0fa; border-left: 6px solid #b3cde0; }
+.cell-spring { background-color: #e6f7e6; border-left: 6px solid #FFD700; }
+.cell-summer { background-color: #fff7e6; border-left: 6px solid #FFD700; }
+.cell-autumn { background-color: #fff0e0; border-left: 6px solid #FFD700; }
+.cell-winter { background-color: #e8f0fa; border-left: 6px solid #FFD700; }
 
 .modal {
     display: none;
@@ -83,7 +83,7 @@ header::after {
     border-radius: 24px;
     max-width: 800px;
     width: 90%;
-    border-top: 8px solid #e6b422;
+    border-top: 8px solid #FFD700;
     box-shadow: 0 20px 30px rgba(0,0,0,0.2);
     position: relative;
 }
@@ -93,12 +93,12 @@ header::after {
     top: 1rem;
     font-size: 28px;
     font-weight: bold;
-    color: #9e2a2b;
+    color: #0057B7;
     cursor: pointer;
     transition: color 0.2s;
 }
 .close:hover {
-    color: #e6b422;
+    color: #FFD700;
 }
 .modal-section {
     margin: 1rem 0;
@@ -108,7 +108,7 @@ header::after {
 .modal-section i {
     width: 1.8rem;
     display: inline-block;
-    color: #9e2a2b;
+    color: #0057B7;
 }
 .trigram {
     background: #f0e6d0;
@@ -129,10 +129,10 @@ header::after {
     border-radius: 20px;
     color: #1e1e1e;
 }
-.legend-spring { background-color: #b8d8a8; }
-.legend-summer { background-color: #ffd966; }
-.legend-autumn { background-color: #e6a017; }
-.legend-winter { background-color: #b3cde0; }
+.legend-spring { background-color: #FFD700; }
+.legend-summer { background-color: #FFD700; }
+.legend-autumn { background-color: #FFD700; }
+.legend-winter { background-color: #FFD700; }
 
 @media (max-width: 800px) {
     .grid-container {
