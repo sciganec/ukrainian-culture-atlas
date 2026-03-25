@@ -1,59 +1,81 @@
 async function loadData() {
-    const response = await fetch('archetypes.json');
-    const data = await response.json();
-    buildGrid(data);
+    try {
+        const response = await fetch('archetypes.json');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        buildGrid(data);
+    } catch (err) {
+        console.error('Помилка завантаження даних:', err);
+        document.getElementById('grid').innerHTML = '<p style="grid-column:1/-1; text-align:center">❌ Не вдалося завантажити archetypes.json. Переконайтеся, що файл існує.</p>';
+    }
 }
 
-function getWhenClass(trigram) {
-    // trigram format: "WHO · WHERE · WHEN"
+function getWhenPhase(trigram) {
+    // trigram має вигляд "WHO · WHERE · WHEN", останнє слово — фаза
+    if (!trigram) return null;
     const parts = trigram.split(' · ');
+    if (parts.length < 3) return null;
     const when = parts[2];
-    switch (when) {
-        case 'SPRING': return 'cell-spring';
-        case 'SUMMER': return 'cell-summer';
-        case 'AUTUMN': return 'cell-autumn';
-        case 'WINTER': return 'cell-winter';
-        default: return '';
-    }
+    if (when === 'SPRING') return 'spring';
+    if (when === 'SUMMER') return 'summer';
+    if (when === 'AUTUMN') return 'autumn';
+    if (when === 'WINTER') return 'winter';
+    return null;
 }
 
 function buildGrid(data) {
     const grid = document.getElementById('grid');
-    // Очищуємо сітку на випадок перезавантаження
     grid.innerHTML = '';
-    // Проходимо по всіх 64 ключах від 000000 до 111111
     for (let i = 0; i < 64; i++) {
         const key = i.toString(2).padStart(6, '0');
         const archetype = data[key];
-        if (!archetype) continue;
+        if (!archetype) {
+            const emptyCell = document.createElement('div');
+            emptyCell.className = 'cell cell-empty';
+            emptyCell.textContent = key;
+            grid.appendChild(emptyCell);
+            continue;
+        }
         const cell = document.createElement('div');
-        cell.className = `cell ${getWhenClass(archetype.trigram)}`;
+        cell.className = 'cell';
+        // додаємо клас фази для кольору
+        const phase = getWhenPhase(archetype.trigram);
+        if (phase) cell.classList.add(`cell-${phase}`);
         cell.textContent = archetype.trigram || key;
         cell.addEventListener('click', () => showModal(archetype));
         grid.appendChild(cell);
     }
 }
 
-function showModal(archetype) {
-    document.getElementById('modal-title').textContent = archetype.title;
-    document.getElementById('modal-trigram').textContent = archetype.trigram;
-    document.getElementById('modal-desc').textContent = archetype.description;
+function showModal(arch) {
+    document.getElementById('modal-title').textContent = arch.title || 'Без назви';
+    document.getElementById('modal-trigram').textContent = arch.trigram || '';
+    document.getElementById('modal-desc').textContent = arch.description || '';
 
-    // Заповнюємо поля
-    document.querySelector('#modal-fields span').textContent = archetype.cultural_fields.join(', ');
-    document.querySelector('#modal-representatives span').textContent = archetype.representatives.join(', ');
-    document.querySelector('#modal-works span').textContent = archetype.works.join(', ');
+    const fieldsDiv = document.getElementById('modal-fields');
+    fieldsDiv.innerHTML = arch.cultural_fields?.length
+        ? `<strong>🏛 Культурні поля:</strong> ${arch.cultural_fields.join(', ')}`
+        : '';
 
-    // Посилання (якщо є)
-    const linksSpan = document.querySelector('#modal-links span');
-    if (archetype.links && Object.keys(archetype.links).length > 0) {
-        let linksHtml = '';
-        for (const [name, url] of Object.entries(archetype.links)) {
-            linksHtml += `<a href="${url}" target="_blank">${name}</a> `;
+    const repsDiv = document.getElementById('modal-representatives');
+    repsDiv.innerHTML = arch.representatives?.length
+        ? `<strong>👥 Представники:</strong> ${arch.representatives.join(', ')}`
+        : '';
+
+    const worksDiv = document.getElementById('modal-works');
+    worksDiv.innerHTML = arch.works?.length
+        ? `<strong>📖 Твори / події:</strong> ${arch.works.join(', ')}`
+        : '';
+
+    const linksDiv = document.getElementById('modal-links');
+    if (arch.links && Object.keys(arch.links).length > 0) {
+        let linksHtml = '<strong>🔗 Посилання:</strong> ';
+        for (const [name, url] of Object.entries(arch.links)) {
+            linksHtml += `<a href="${url}" target="_blank" rel="noopener">${name}</a> `;
         }
-        linksSpan.innerHTML = linksHtml;
+        linksDiv.innerHTML = linksHtml;
     } else {
-        linksSpan.innerHTML = '';
+        linksDiv.innerHTML = '';
     }
 
     document.getElementById('modal').style.display = 'block';
