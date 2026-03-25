@@ -88,3 +88,37 @@ ukrainian-culture-atlas/
 ```
 
 ---
+
+**Atlas of Ukrainian Culture**  
+*An interactive catalog of 64 archetypes mapping Ukrainian cultural history through the SUBIT system.*
+
+---
+
+## EN
+
+The **Atlas of Ukrainian Culture** is a digital project that structures the entire span of Ukrainian cultural history — from ancient Trypillia and Scythian times to the end of the 20th century — into **64 archetypes** defined by three coordinates: **WHO** (the acting subject), **WHERE** (the geocultural region), and **WHEN** (the historical phase).  
+
+This framework, called **SUBIT**, combines:
+
+- **WHO** = ME, WE, YOU, THEY  
+- **WHERE** = EAST, SOUTH, WEST, NORTH  
+- **WHEN** = SPRING, SUMMER, AUTUMN, WINTER  
+
+Each archetype corresponds to a unique 6‑bit binary key (from `000000` to `111111`). Every key is linked to a rich description, key representatives, works, cultural fields, and links.
+
+---
+
+## What’s Inside
+
+The atlas covers **Ukrainian culture from its archaic roots to the year 2000**, including:
+
+- **Archaic cultures**: Trypillia, Scythians, ancient Greek colonies, Kyivan Rus’ (including *The Tale of Igor’s Campaign*).  
+- **Cossack era**: kobzar epic singers, vertep puppet theater, baroque architecture, Kyiv-Mohyla Academy.  
+- **19th‑century national revival**: classics of literature (Shevchenko, Franko, Lesya Ukrainka), the Coryphaeus theater, folk music collections.  
+- **Early 20th‑century avant-garde**: Les Kurbas’ Berezil theater, Mykola Khvylovy, Mykhail Semenko, avant-garde painting.  
+- **Soviet period**: cinema (Dovzhenko, Mykolaychuk), music (Rotaru, Ivasyuk, Utyosov), rock music (Vopli Vidopliasova, Brothers Hadyukiny), non‑conformist art, diaspora theater
+- **Independent era**: (1990s): DakhaBrakha, theater DAKH, literary groups (Bu-Ba-Bu), contemporary prose (Zabuzhko, Andrukhovych, Zhadan)
+
+The project is structured as a single JSON file and an interactive 8×8 grid website, deployable on GitHub Pages. All 64 archetypes are verified, free of Russian cultural impositions, and chronologically consistent.
+
+
