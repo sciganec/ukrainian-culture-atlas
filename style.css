@@ -109,3 +109,25 @@ footer {
         padding: 15px;
     }
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=PT+Serif:wght@400;700&display=swap');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #fef9e8;
+    color: #1e1e1e;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, .trigram {
+    font-family: 'PT Serif', serif;
+}
+
+header {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #9e2a2b 0%, #e6b422 100%);
+    color: white;
+    margin-bottom: 2rem;
+}
