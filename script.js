@@ -1,69 +1,59 @@
 async function loadData() {
-    try {
-        const response = await fetch('archetypes.json');
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const data = await response.json();
-        buildGrid(data);
-    } catch (err) {
-        console.error('Помилка завантаження даних:', err);
-        document.getElementById('grid').innerHTML = '<p style="grid-column:1/-1; text-align:center">❌ Не вдалося завантажити archetypes.json. Переконайтеся, що файл існує.</p>';
+    const response = await fetch('archetypes.json');
+    const data = await response.json();
+    buildGrid(data);
+}
+
+function getWhenClass(trigram) {
+    // trigram format: "WHO · WHERE · WHEN"
+    const parts = trigram.split(' · ');
+    const when = parts[2];
+    switch (when) {
+        case 'SPRING': return 'cell-spring';
+        case 'SUMMER': return 'cell-summer';
+        case 'AUTUMN': return 'cell-autumn';
+        case 'WINTER': return 'cell-winter';
+        default: return '';
     }
 }
 
 function buildGrid(data) {
     const grid = document.getElementById('grid');
+    // Очищуємо сітку на випадок перезавантаження
     grid.innerHTML = '';
-    // ключі від 000000 до 111111
+    // Проходимо по всіх 64 ключах від 000000 до 111111
     for (let i = 0; i < 64; i++) {
         const key = i.toString(2).padStart(6, '0');
         const archetype = data[key];
-        if (!archetype) {
-            // Якщо якогось архетипу немає, додаємо порожню клітинку
-            const emptyCell = document.createElement('div');
-            emptyCell.className = 'cell';
-            emptyCell.textContent = key;
-            emptyCell.style.backgroundColor = '#f5ede3';
-            emptyCell.style.cursor = 'default';
-            grid.appendChild(emptyCell);
-            continue;
-        }
+        if (!archetype) continue;
         const cell = document.createElement('div');
-        cell.className = 'cell';
+        cell.className = `cell ${getWhenClass(archetype.trigram)}`;
         cell.textContent = archetype.trigram || key;
         cell.addEventListener('click', () => showModal(archetype));
         grid.appendChild(cell);
     }
 }
 
-function showModal(arch) {
-    document.getElementById('modal-title').textContent = arch.title || 'Без назви';
-    document.getElementById('modal-trigram').textContent = arch.trigram || '';
-    document.getElementById('modal-desc').textContent = arch.description || '';
+function showModal(archetype) {
+    document.getElementById('modal-title').textContent = archetype.title;
+    document.getElementById('modal-trigram').textContent = archetype.trigram;
+    document.getElementById('modal-desc').textContent = archetype.description;
 
-    const fieldsDiv = document.getElementById('modal-fields');
-    fieldsDiv.innerHTML = arch.cultural_fields?.length
-        ? `<strong>🏛 Культурні поля:</strong> ${arch.cultural_fields.join(', ')}`
-        : '';
+    // Заповнюємо поля
+    document.querySelector('#modal-fields span').textContent = archetype.cultural_fields.join(', ');
+    document.querySelector('#modal-representatives span').textContent = archetype.representatives.join(', ');
+    document.querySelector('#modal-works span').textContent = archetype.works.join(', ');
 
-    const repsDiv = document.getElementById('modal-representatives');
-    repsDiv.innerHTML = arch.representatives?.length
-        ? `<strong>👥 Представники:</strong> ${arch.representatives.join(', ')}`
-        : '';
-
-    const worksDiv = document.getElementById('modal-works');
-    worksDiv.innerHTML = arch.works?.length
-        ? `<strong>📖 Твори / події:</strong> ${arch.works.join(', ')}`
-        : '';
-
-    const linksDiv = document.getElementById('modal-links');
-    if (arch.links && Object.keys(arch.links).length > 0) {
-        let linksHtml = '<strong>🔗 Посилання:</strong> ';
-        for (const [name, url] of Object.entries(arch.links)) {
-            linksHtml += `<a href="${url}" target="_blank" rel="noopener">${name}</a> `;
+    // Посилання (якщо є)
+    const linksSpan = document.querySelector('#modal-links span');
+    if (archetype.links && Object.keys(archetype.links).length > 0) {
+        let linksHtml = '';
+        for (const [name, url] of Object.entries(archetype.links)) {
+            linksHtml += `<a href="${url}" target="_blank">${name}</a> `;
         }
-        linksDiv.innerHTML = linksHtml;
+        linksSpan.innerHTML = linksHtml;
     } else {
-        linksDiv.innerHTML = '';
+        linksSpan.innerHTML = '';
     }
 
     document.getElementById('modal').style.display = 'block';
