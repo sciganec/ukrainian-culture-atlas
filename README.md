@@ -122,3 +122,5 @@ The atlas covers **Ukrainian culture from its archaic roots to the year 2000**, 
 The project is structured as a single JSON file and an interactive 8×8 grid website, deployable on GitHub Pages. All 64 archetypes are verified, free of Russian cultural impositions, and chronologically consistent.
 
 
+
+
