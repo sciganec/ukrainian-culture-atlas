@@ -1,0 +1,129 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: #faf8f5;
+    color: #2c2c2c;
+}
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+h1 {
+    font-size: 2rem;
+    margin-bottom: 0.2em;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 4px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #e0d6cc;
+    padding: 8px;
+    border-radius: 12px;
+}
+.cell {
+    border: 1px solid #d4c9bc;
+    padding: 10px 4px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 6px;
+}
+.cell:hover {
+    filter: brightness(0.95);
+    transform: scale(1.02);
+}
+
+/* Кольори за фазою WHEN */
+.cell-spring {
+    background: #c8e6c9;  /* світло-зелений */
+}
+.cell-summer {
+    background: #ffe0b2;  /* світло-жовтогарячий */
+}
+.cell-autumn {
+    background: #ffccbc;  /* світло-теракотовий */
+}
+.cell-winter {
+    background: #b3e5fc;  /* світло-блакитний */
+}
+.cell-empty {
+    background: #f5ede3;
+    cursor: default;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(2px);
+}
+.modal-content {
+    background-color: #fffef7;
+    margin: 8% auto;
+    padding: 20px 30px;
+    border: 1px solid #c9bcab;
+    width: 80%;
+    max-width: 850px;
+    border-radius: 24px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    max-height: 80vh;
+    overflow-y: auto;
+}
+.close {
+    color: #9a8b7a;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.close:hover {
+    color: #5e3a1f;
+}
+.trigram {
+    font-family: monospace;
+    background: #f0e9df;
+    padding: 4px 8px;
+    display: inline-block;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+}
+#modal-fields, #modal-representatives, #modal-works, #modal-links {
+    margin-top: 12px;
+    line-height: 1.5;
+}
+strong {
+    color: #7c5e3a;
+}
+footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.8rem;
+    color: #7f6e5c;
+}
+@media (max-width: 800px) {
+    .grid-container {
+        gap: 2px;
+    }
+    .cell {
+        font-size: 8px;
+        padding: 6px 2px;
+    }
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+        padding: 15px;
+    }
+}
