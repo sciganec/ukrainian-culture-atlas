@@ -3,31 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Інтерактивний атлас 64 архетипів української культури за системою SUBIT: WHO × WHERE × WHEN.">
     <title>Атлас української культури | SUBIT</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Source+Serif+4:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>📖 Атлас української культури</h1>
-        <p>64 архетипи за системою <strong>SUBIT</strong> – WHO × WHERE × WHEN</p>
-    </header>
-    <div class="grid-container" id="grid"></div>
+    <div class="page-shell">
+        <header class="hero">
+            <div class="hero-copy">
+                <p class="eyebrow">SUBIT Cultural Explorer</p>
+                <h1>Атлас української культури</h1>
+                <p class="hero-text">
+                    64 архетипи, розкладені по координатах <strong>WHO</strong>, <strong>WHERE</strong> і <strong>WHEN</strong>.
+                    Досліджуйте культуру як мапу зв'язків, регіонів, фаз і ключових постатей.
+                </p>
+                <div class="hero-actions">
+                    <button id="random-button" class="primary-button" type="button">Випадковий архетип</button>
+                    <a class="secondary-link" href="README.md">Про проєкт</a>
+                </div>
+            </div>
+            <aside class="hero-panel" aria-label="Статистика атласу">
+                <div class="stat-card">
+                    <span class="stat-value" id="stat-total">64</span>
+                    <span class="stat-label">архетипи</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">4</span>
+                    <span class="stat-label">регіони</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">4</span>
+                    <span class="stat-label">фази часу</span>
+                </div>
+                <div class="stat-card accent-card">
+                    <span class="stat-value" id="stat-visible">64</span>
+                    <span class="stat-label">видимі зараз</span>
+                </div>
+            </aside>
+        </header>
 
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
+        <main>
+            <section class="controls-section" aria-label="Інструменти дослідження">
+                <div class="search-row">
+                    <label class="search-label" for="search-input">Пошук за назвою, описом, представниками або творами</label>
+                    <input id="search-input" type="search" placeholder="Наприклад: Курбас, трипілля, ДАХ, поема..." autocomplete="off">
+                </div>
+                <div class="filters-row">
+                    <label>
+                        <span>WHO</span>
+                        <select id="who-filter">
+                            <option value="all">Усі</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span>WHERE</span>
+                        <select id="where-filter">
+                            <option value="all">Усі</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span>WHEN</span>
+                        <select id="when-filter">
+                            <option value="all">Усі</option>
+                        </select>
+                    </label>
+                    <button id="reset-button" class="ghost-button" type="button">Скинути</button>
+                </div>
+                <div class="legend-row" aria-label="Легенда фаз">
+                    <span class="legend-chip spring">SPRING</span>
+                    <span class="legend-chip summer">SUMMER</span>
+                    <span class="legend-chip autumn">AUTUMN</span>
+                    <span class="legend-chip winter">WINTER</span>
+                </div>
+                <p id="results-summary" class="results-summary" aria-live="polite">Показано 64 із 64 архетипів.</p>
+            </section>
+
+            <section class="grid-section">
+                <div id="status" class="status-card">Завантаження архетипів…</div>
+                <div class="grid-container" id="grid" aria-live="polite" aria-label="Сітка архетипів"></div>
+            </section>
+        </main>
+    </div>
+
+    <div id="modal" class="modal" hidden>
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <button id="close-button" class="close" type="button" aria-label="Закрити">&times;</button>
+            <p id="modal-key" class="modal-key"></p>
             <h2 id="modal-title"></h2>
             <p id="modal-trigram" class="trigram"></p>
             <p id="modal-desc"></p>
-            <div id="modal-fields"></div>
-            <div id="modal-representatives"></div>
-            <div id="modal-works"></div>
-            <div id="modal-links"></div>
+            <div class="detail-grid">
+                <section id="modal-fields" class="detail-card"></section>
+                <section id="modal-representatives" class="detail-card"></section>
+                <section id="modal-works" class="detail-card"></section>
+                <section id="modal-links" class="detail-card"></section>
+            </div>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
